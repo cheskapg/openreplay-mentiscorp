@@ -14,7 +14,7 @@ git clone https://github.com/NicoTuban30/openreplay-mentiscorp.git
 3. Navigate to the cloned repository:
 
 ```bash
-cd openreplay
+cd openreplay-mentiscorp
 ```
 
 4. Then, navigate to the frontend directory:
