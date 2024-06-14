@@ -2,18 +2,21 @@ import React, { lazy, Suspense } from 'react';
 import { Loader } from 'UI';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Signup from 'Components/Signup/Signup';
+
 import SupportCallout from 'Shared/SupportCallout';
 import { connect } from 'react-redux';
 import * as routes from 'App/routes';
 
 
-const LOGIN_PATH = routes.login();
+// const LOGIN_PATH = routes.login();
 const SIGNUP_PATH = routes.signup();
 const FORGOT_PASSWORD = routes.forgotPassword();
+const DASHBOARD_PATH = '/dashboard';
 
-const Login = lazy(() => import('Components/Login/Login'));
+// const Login = lazy(() => import('Components/Login/Login'));
 const ForgotPassword = lazy(() => import('Components/ForgotPassword/ForgotPassword'));
 const UpdatePassword = lazy(() => import('Components/UpdatePassword/UpdatePassword'));
+const Dashboard = lazy(() => import('Components/Dashboard/NewDashboard'));
 
 interface Props {
   isEnterprise: boolean;
@@ -25,9 +28,12 @@ function PublicRoutes(props: Props) {
     <Suspense fallback={<Loader loading={true} className='flex-1' />}>
       <Switch>
         <Route exact strict path={FORGOT_PASSWORD} component={ForgotPassword} />
-        <Route exact strict path={LOGIN_PATH} component={props.changePassword ? UpdatePassword : Login} />
+        {/* <Route exact strict path={LOGIN_PATH} component={props.changePassword ? UpdatePassword : Login} /> */}
         <Route exact strict path={SIGNUP_PATH} component={Signup} />
-        <Redirect to={LOGIN_PATH} />
+        <Route path={DASHBOARD_PATH} component={Dashboard} />
+        <Route path="/" component={Dashboard} /> {/* Default to Dashboard */}
+
+        {/* <Redirect to={LOGIN_PATH} /> */}
       </Switch>
       {!props.isEnterprise && <SupportCallout />}
     </Suspense>
